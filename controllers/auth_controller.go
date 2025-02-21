@@ -85,5 +85,5 @@ func (controller AuthController) Register(c echo.Context) error {
 	user.Password = string(hashedPassword)
 
 	config.DB.Create(&user)
-	return c.JSON(http.StatusOK, models.BaseResponse[models.User]{Message: "success", Data: user})
+	return c.JSON(http.StatusOK, models.BaseResponse[string]{Message: "success", Data: user.Username})
 }

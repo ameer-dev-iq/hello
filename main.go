@@ -4,14 +4,20 @@ import (
 	"example/hello/config"
 	"example/hello/controllers"
 	"example/hello/helper"
+	"log"
 
 	"github.com/go-playground/validator"
+	"github.com/joho/godotenv"
 	echojwt "github.com/labstack/echo-jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	// Initialize Echo
 	e := echo.New()
 

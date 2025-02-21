@@ -2,6 +2,8 @@ package config
 
 import (
 	"example/hello/models"
+	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -10,7 +12,11 @@ import (
 var DB *gorm.DB
 
 func InitDB() {
-	dsn := "host=localhost user=gogo password=myPassword dbname=mydb port=5432 sslmode=disable TimeZone=UTC"
+
+	dsn := os.Getenv("DATABASE_DSN")
+	if dsn == "" {
+		log.Fatal("DATABASE_DSN environment variable is not set")
+	}
 	var err error
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
